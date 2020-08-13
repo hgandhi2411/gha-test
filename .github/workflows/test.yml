@@ -33,4 +33,4 @@ jobs:
         cd ..
     - name: Run tests
       run: |
-        pytest --forked
+        pytest -v --forked
