@@ -1,0 +1,35 @@
+name: HTF v2
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    tags: 
+      - v2.0.1
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: s-weigand/setup-conda@v1.0.3
+    - name: Install dependencies
+      run: |
+        # Install testing dependencies
+        pip install pytest-cov
+        
+        # Install software dependencies
+        pip install tensorflow==2.3.0
+        conda install -c conda-forge tbb-devel hoomd
+    - name: Download and install HTF
+      run: |
+        mkdir build && cd build
+        CXX=g++ CC=gcc CMAKE_PREFIX_PATH=$CONDA_PREFIX cmake ..
+        make install
+        cd ..
+    - name: Run tests
+      run: |
+        pytest
