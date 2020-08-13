@@ -33,4 +33,7 @@ jobs:
         cd ..
     - name: Run tests
       run: |
-        pytest
+        python htf/test-py/test_sanity.py
+        python htf/test-py/test_mpi_tensorflow.py
+        python htf/test-py/test_tensorflow.py
+        python htf/test-py/test_utils.py
