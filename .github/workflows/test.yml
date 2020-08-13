@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         # Install testing dependencies
-        pip install pytest-cov
+        pip install pytest-cov pytest-xdist
         
         # Install software dependencies
         pip install tensorflow==2.3.0
@@ -33,4 +33,4 @@ jobs:
         cd ..
     - name: Run tests
       run: |
-        pytest
+        pytest --forked
