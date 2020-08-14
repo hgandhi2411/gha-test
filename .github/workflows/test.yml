@@ -36,7 +36,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: s-weigand/setup-conda@v1.0.3
       with:
-        python-version: 3.6
+        python-version: 3.7
     - name: Install dependencies
       if: ${{ matrix.hoomd == '2.9.2' || matrix.hoomd == '2.9.0' || matrix.hoomd == '2.8.2'}}
       run: |
@@ -47,7 +47,7 @@ jobs:
         pip install tensorflow==${{ matrix.tensorflow }}
         conda install -c conda-forge tbb-devel==${{ matrix.tbb-devel }} hoomd==${{ matrix.hoomd }}
     - name: Dependencies for hoomd<2.8
-      if: ${{ failure() }}
+      if: ${{ matrix.hoomd == '2.6.0' || matrix.hoomd == '2.7.0' }}
       run: |
         # Install testing dependencies
         pip install pytest-cov pytest-xdist
