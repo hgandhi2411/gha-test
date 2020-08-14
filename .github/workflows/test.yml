@@ -38,7 +38,7 @@ jobs:
       with:
         python-version: 3.6
     - name: Install dependencies
-      if: ${{ matrix.hoomd == '2.9.2' || matrix.hoomd == '2.9.0' || matric.hoomd == '2.8.2'}}
+      if: ${{ matrix.hoomd == '2.9.2' || matrix.hoomd == '2.9.0' || matrix.hoomd == '2.8.2'}}
       run: |
         # Install testing dependencies
         pip install pytest-cov pytest-xdist
