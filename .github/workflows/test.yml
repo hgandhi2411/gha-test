@@ -27,10 +27,10 @@ jobs:
             tbb-devel: 2020.1
           - hoomd: 2.7.0
             tensorflow: 2.3.0
-            tbb-devel: 2019.8
+            tbb-devel: 2020.1
           - hoomd: 2.6.0
             tensorflow: 2.3.0
-            tbb-devel: 2019.7
+            tbb-devel: 2020.1
 
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +38,6 @@ jobs:
       with:
         python-version: 3.7
     - name: Install dependencies
-      if: ${{ matrix.hoomd == '2.9.2' || matrix.hoomd == '2.9.0' || matrix.hoomd == '2.8.2'}}
       run: |
         # Install testing dependencies
         pip install pytest-cov pytest-xdist
@@ -46,15 +45,6 @@ jobs:
         # Install software dependencies
         pip install tensorflow==${{ matrix.tensorflow }}
         conda install -c conda-forge tbb-devel==${{ matrix.tbb-devel }} hoomd==${{ matrix.hoomd }}
-    - name: Dependencies for hoomd<2.8
-      if: ${{ matrix.hoomd == '2.6.0' || matrix.hoomd == '2.7.0' }}
-      run: |
-        # Install testing dependencies
-        pip install pytest-cov pytest-xdist
-        
-        # Install software dependencies
-        pip install tensorflow==${{ matrix.tensorflow }}
-        conda install -c conda-forge hoomd==${{ matrix.hoomd }}
     - name: Download and install HTF
       run: |
         git clone https://github.com/ur-whitelab/hoomd-tf.git
