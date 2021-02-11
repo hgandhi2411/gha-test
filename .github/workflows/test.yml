@@ -16,10 +16,6 @@ jobs:
       matrix:
         include:
           - hoomd: 2.9.2
-            tensorflow: 2.4.0rc4
-            tbb-devel: 2020.1
-            md-analysis: 'true'
-          - hoomd: 2.9.2
             tensorflow: 2.3.0
             tbb-devel: 2020.1
             md-analysis: 'true'
@@ -46,13 +42,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: s-weigand/setup-conda@v1.0.3
+    - uses: s-weigand/setup-conda@v1.0.5
       with:
         python-version: 3.7
     - name: Install dependencies
       run: |
         # Install testing dependencies
-        pip install pytest-cov pytest-xdist
+        pip install pytest-cov pytest-xdist jupyter notebook
 
         # Install software dependencies
         pip install tensorflow==${{ matrix.tensorflow }}
@@ -63,11 +59,13 @@ jobs:
           pip install MDAnalysis
     - name: Download and install HTF
       run: |
-        mkdir build && cd build
+        git clone https://github.com/ur-whitelab/hoomd-tf.git
+        cd hoomd-tf && mkdir build && cd build
         CXX=g++ CC=gcc CMAKE_PREFIX_PATH=/usr/share/miniconda cmake ..
         make install
         cd ..
     - name: Run tests
       run: |
         pytest -v --forked
+        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute htf/examples/*.ipynb --to notebook --clear-output --stdout
 
