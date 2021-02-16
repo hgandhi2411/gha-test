@@ -67,6 +67,6 @@ jobs:
     - name: Run tests
       run: |
         pytest -v --forked
-        echo pwd
-        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute htf/examples/01. Quickstart.ipynb --to notebook --clear-output --stdout
+        pwd
+        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "htf/examples/01. Quickstart.ipynb" --to notebook --clear-output --stdout
 
