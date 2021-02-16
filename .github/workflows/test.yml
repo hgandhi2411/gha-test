@@ -48,7 +48,7 @@ jobs:
     - name: Install dependencies
       run: |
         # Install testing dependencies
-        pip install pytest-cov pytest-xdist jupyter notebook
+        pip install pytest-cov pytest-xdist jupyter notebook matplotlib
 
         # Install software dependencies
         pip install tensorflow==${{ matrix.tensorflow }}
@@ -67,7 +67,5 @@ jobs:
     - name: Run tests
       run: |
         pytest -v --forked
-        pwd
-        ls
         jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "hoomd-tf/examples/01. Quickstart.ipynb" --to notebook --clear-output --stdout
 
